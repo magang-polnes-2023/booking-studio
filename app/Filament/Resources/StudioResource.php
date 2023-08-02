@@ -21,7 +21,7 @@ class StudioResource extends Resource
 {
     protected static ?string $model = Studio::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-s-video-camera';
 
     protected static function getNavigationLabel(): string
     {
@@ -41,9 +41,17 @@ class StudioResource extends Resource
             ->schema([
                 Card::make()->schema([
                 FileUpload::make('image'),
-                Forms\Components\TextInput::make('nama_studio')->required(),
-                Forms\Components\TextInput::make('harga')->numeric()->required(),
-                MarkdownEditor::make('deskripsi'),
+                Forms\Components\TextInput::make('nama_studio')
+                    ->required(),
+                Forms\Components\TextInput::make('harga')
+                    ->numeric()
+                    ->mask(
+                        fn (Forms\Components\TextInput\Mask $mask) => $mask
+                        ->numeric()
+                        ->decimalPlaces(2)
+                        ->thousandsSeparator(',')
+                    )
+                    ->required(),
                 ])
             ]);
     }
@@ -53,9 +61,10 @@ class StudioResource extends Resource
         return $table
             ->columns([
                 ImageColumn::make('image'),
-                Tables\Columns\TextColumn::make('nama_studio'),
-                Tables\Columns\TextColumn::make('harga'),
-                Tables\Columns\TextColumn::make('deskripsi'),
+                Tables\Columns\TextColumn::make('nama_studio')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('harga')
+                    ->money('idr'),
             ])
             ->filters([
                 //

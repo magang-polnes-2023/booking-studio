@@ -27,7 +27,7 @@ class BookingResource extends Resource
 {
     protected static ?string $model = Booking::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-folder';
     protected static function getNavigationLabel(): string
     {
         return "Booking";
@@ -74,8 +74,10 @@ class BookingResource extends Resource
                             ->label('Bukti pembayaran'),
                         Select::make('status')
                             ->options([
-                                'belum dibayar' => 'Belum Dibayar',
-                                'sudah dibayar' => 'Sudah Dibayar',
+                                'Belum Dibayar' => 'Belum Dibayar',
+                                'Sudah Dibayar' => 'Sudah Dibayar',
+                                'Canceled' => 'Canceled',
+                                'Waiting' => 'Waiting',
                             ]),
                         ]),
             ]);
@@ -94,8 +96,10 @@ class BookingResource extends Resource
                 ImageColumn::make('bukti_pembayaran'),
                 SelectColumn::make('status')
                     ->options([
-                        'belum dibayar' => 'Belum Dibayar',
-                        'sudah dibayar' => 'Sudah Dibayar',
+                        'Belum Dibayar' => 'Belum Dibayar',
+                        'Sudah Dibayar' => 'Sudah Dibayar',
+                        'Canceled' => 'Canceled',
+                        'Waiting' => 'Waiting',
                     ])
             ])
             ->filters([
@@ -103,9 +107,22 @@ class BookingResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ForceDeleteAction::make(),
+                Tables\Actions\RestoreAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\ForceDeleteBulkAction::make(),
+                Tables\Actions\RestoreBulkAction::make(),
+            ]);
+    }
+    
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
             ]);
     }
     

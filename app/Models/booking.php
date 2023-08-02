@@ -17,6 +17,7 @@ class booking extends Model
         'durasi',
         'start',
         'finish',
+        'total',
         'bukti_pembayaran',
         'status',
     ];

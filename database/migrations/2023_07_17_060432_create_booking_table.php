@@ -20,8 +20,9 @@ return new class extends Migration
             $table->integer('durasi');
             $table->time('start');
             $table->time('finish');
+            $table->integer('total');
             $table->string('bukti_pembayaran')->nullable();
-            $table->string('status')->nullable();
+            $table->string('status')->nullable()->default('Belum Dibayar');
             $table->timestamps();
         });
     }
