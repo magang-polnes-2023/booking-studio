@@ -2,14 +2,18 @@
 
 namespace App\Filament\Resources;
 
+use Closure;
+use DateTime;
 use Filament\Forms;
 use Filament\Tables;
 use App\Models\Booking;
+use App\Models\Studio;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Fieldset;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
@@ -48,6 +52,12 @@ class BookingResource extends Resource
                         Select::make('studio_id')
                             ->label('Studio')
                             ->relationship('studio', 'nama_studio')
+                            ->reactive()
+                            ->afterStateUpdated(function (Closure $set, $state){
+                                $selected = Studio::find($state);
+                                $harga = $selected ? $selected->harga : null;
+                                $set('hrg', $harga);
+                            })
                             ->required(),
                         Select::make('user_id')
                             ->label('Nama User')
@@ -63,13 +73,36 @@ class BookingResource extends Resource
                         TextInput::make('durasi')
                             ->label('Durasi Booking (/jam)')
                             ->required()
+                            ->reactive()
+                            ->afterStateUpdated(function (Closure $set, $state, $get){
+                                $harga = $get('hrg');
+                                $total = $harga * $state;
+                                $set('harga', $total);
+                            })
                             ->numeric(),
                         TimePicker::make('start')
                             ->label('Waktu Mulai')
+                            ->reactive()
+                            ->afterStateUpdated(function (Closure $set, $state, $get){
+                                $startTime = DateTime::createFromFormat('Y-m-d H:i:s', $state);
+                                $durasi = (int) $get('durasi');
+                                $endTime = clone $startTime;
+                                $endTime->modify("+" . $durasi . "hours");
+
+                                $endTimeStr = $endTime->format('Y-m-d H:i:s');
+
+                                $set('finish', $endTimeStr);
+                            })
                             ->required(),
                         TimePicker::make('finish')
                             ->label('Waktu Selesai')
                             ->required(),
+                        TextInput::make('hrg')
+                            ->label('Harga/Studio')
+                            ->required(),
+                        TextInput::make('harga')
+                            ->label('Total Harga')
+                            ->disabled(),
                         FileUpload::make('bukti_pembayaran')
                             ->label('Bukti pembayaran'),
                         Select::make('status')
@@ -78,6 +111,8 @@ class BookingResource extends Resource
                                 'Sudah Dibayar' => 'Sudah Dibayar',
                                 'Canceled' => 'Canceled',
                                 'Waiting' => 'Waiting',
+                                'Digunakan' => 'Digunakan',
+                                'Selesai' => 'Selesai',
                             ]),
                         ]),
             ]);
@@ -92,6 +127,8 @@ class BookingResource extends Resource
                 TextColumn::make('user.name')
                     ->searchable(),
                 TextColumn::make('tanggal'),
+                TextColumn::make('start'),
+                TextColumn::make('finish'),
                 TextColumn::make('durasi'),
                 ImageColumn::make('bukti_pembayaran'),
                 SelectColumn::make('status')
@@ -100,8 +137,10 @@ class BookingResource extends Resource
                         'Sudah Dibayar' => 'Sudah Dibayar',
                         'Canceled' => 'Canceled',
                         'Waiting' => 'Waiting',
+                        'Digunakan' => 'Digunakan',
+                        'Selesai' => 'Selesai',
                     ])
-            ])
+            ])->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])

@@ -5,60 +5,64 @@
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead
-                    class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 justify-center">
+                    class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-center whitespace-no-wrap">
                     <tr>
-                        <th scope="col" class="px-14 py-3">
+                        <th scope="col" class="px-4 py-3 border border-gray-200">
                             No
                         </th>
-                        <th scope="col" class="px-3 py-3">
+                        <th scope="col" class="px-3 py-3 border border-gray-200">
                             Nama Studio
                         </th>
-                        <th scope="col" class="px-7 py-3">
+                        <th scope="col" class="px-7 py-3 border border-gray-200">
                             Nama
                         </th>
-                        <th scope="col" class="px-7 py-3">
+                        <th scope="col" class="px-4 py-3 border border-gray-200">
                             Tanggal
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-4 py-3 border border-gray-200">
                             Total Harga
                         </th>
-                        <th scope="col" class="px-10 py-3">
-                            Bukti
+                        <th scope="col" class="px-4 py-3 border border-gray-200">
+                            Bukti Bayar
                         </th>
-                        <th scope="col" class="px-8 py-3">
+                        <th scope="col" class="px-8 py-3 border border-gray-200">
                             Status
                         </th>
-                        <th scope="col" class="px-4 py-3">
+                        <th scope="col" class="px-4 py-3 border border-gray-200">
                             Action
+                        </th>
+                        <th scope="col" class="px-4 py-3 border border-gray-200">
+                            Cancel
                         </th>
                     </tr>
                 </thead>
                 @if ($booking->count() > 0)
                     @foreach ($booking as $item)
                         <tbody>
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <tr
+                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 whitespace-no-wrap text-center">
                                 <th scope="row"
-                                    class="px-14 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white border border-gray-200">
                                     {{ $loop->iteration }}
                                 </th>
-                                <td class="px-1 py-3">
+                                <td class="px-1 py-3 border border-gray-200">
                                     {{ $item->studio->nama_studio }}
                                 </td>
-                                <td class="px-7 py-3">
+                                <td class="px-7 py-3 border border-gray-200">
                                     {{ $item->user->name }}
                                 </td>
-                                <td class="px-6 py-3">
+                                <td class="px-4 py-3 border border-gray-200">
                                     {{ $item->tanggal }}
                                 </td>
-                                <td class="px-10 py-3">
+                                <td class="px-4 py-3 border border-gray-200">
                                     {{ $item->total }}
                                 </td>
-                                <td class="px-5 py-3">
+                                <td class="px-1 py-3 border border-gray-200">
                                     <!-- File Upload Form -->
                                     @if ($item->bukti_pembayaran)
                                         <!-- Tampilkan gambar payment jika ada -->
-                                        <img src="{{ asset('storage/' . $item->bukti_pembayaran) }}" width="100"
-                                            height="100" class="mx-auto">
+                                        <img src="{{ asset('storage/' . $item->bukti_pembayaran) }}" width="50"
+                                            height="50" class="mx-auto">
                                     @else
                                         @if ($item->status == 'Canceled')
                                         @else
@@ -67,15 +71,13 @@
                                                 @csrf
                                                 @method('PUT')
 
-                                                <div class="flex gap-4">
-                                                    <div class="mb-4 flex-1">
+                                                <div class="flex flex-col gap-1 justify-center items-center">
+                                                    <div class="mb-4">
                                                         <input type="file" name="bukti_pembayaran"
-                                                            id="bukti_pembayaran" class="rounded-md p-2 w-full"
-                                                            required>
+                                                            id="bukti_pembayaran" class="rounded-md p-2 w-26" required>
                                                         @error('bukti')
                                                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                                         @enderror
-
                                                     </div>
                                                     <div>
                                                         <button type="submit"
@@ -98,14 +100,15 @@
                                     @endif
                                 </td>
                                 </td>
-                                <td class="px-6 py-3">
+                                <td class="px-5 py-3 border border-gray-200">
                                     {{ $item->status }}
                                 </td>
-                                <td class="px-5 py-3">
-                                    <div x-data="{ isOpen: false }" class="relative flex">
+                                <td class="px-7 py-3 border border-gray-200">
+                                    <div x-data="{ isOpen: false }" class="flex justify-center items-center">
                                         <button @click="isOpen = true"
                                             class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                            Bayar</button>
+                                            Bayar
+                                        </button>
 
                                         <div x-show="isOpen" x-transition:enter="transition duration-300 ease-out"
                                             x-transition:enter-start="translate-y-4 opacity-0 sm:translate-y-0 sm:scale-95"
@@ -132,9 +135,11 @@
 
                                                     <div class="mt-5 text-center">
                                                         <h6 class="text-md text-gray-500 dark:text-white">
-                                                            These are your order details, please pay the bill soon. we
-                                                            will immediately confirm your order. Thank you for trusting
-                                                            The Studio
+                                                            Ini adalah detail pesanan Anda, harap segera bayar
+                                                            tagihannya dan kami
+                                                            akan segera mengkonfirmasi pesanan anda. Terima kasih atas
+                                                            kepercayaannya
+
                                                         </h6>
                                                     </div>
 
@@ -196,7 +201,7 @@
 
                                                     <div class="mt-2 text-justify">
                                                         <h6 class="text-md text-gray-500 dark:text-white">
-                                                            You can pay by scanning this barcode :
+                                                            Anda dapat membayar dengan memindai barcode ini:
                                                         </h6>
                                                     </div>
 
@@ -211,7 +216,6 @@
                                                             class="px-4 sm:mx-2 w-full py-2.5 text-sm font-medium dark:text-gray-200 dark:border-blue-700 dark:hover:bg-blue-700 tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-700 border border-blue-200 rounded-md hover:bg-blue-100 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-40">
                                                             Oke
                                                         </button>
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -219,14 +223,13 @@
                                     </div>
                                 </td>
                                 @if ($item->status == 'Belum Dibayar')
-                                    <td class="px-6 py-1">
+                                    <td class="px-6 py-1 border border-gray-200">
                                         <form action="{{ route('konfirmasi.cancel', ['id' => $item->id]) }}"
                                             method="post">
                                             @csrf
-                                            <div
-                                                class="mt-4 sm:flex sm:items-center sm:justify-between sm:mt-6 sm:-mx-2">
-                                                <button @click="isOpen = false"
-                                                    class="px-4 sm:mx-2 w-full py-2.5 text-sm font-medium dark:text-gray-200 dark:border-blue-700 dark:hover:bg-blue-700 tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-700 border border-blue-200 rounded-md hover:bg-blue-100 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-40">
+                                            <div x-data="{ isOpen: false }" class="flex justify-center items-center">
+                                                <button @click="isOpen=true"
+                                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                                                     Cancel
                                                 </button>
                                             </div>

@@ -6,6 +6,7 @@ use App\Models\booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+// use Carbon\Carbon;
 
 class konfirmasiController extends Controller
 {
@@ -20,6 +21,23 @@ class konfirmasiController extends Controller
         ->where('user_id', $user->id)
         ->latest()
         ->paginate(5);
+
+        // $now = Carbon::now(); // Mendapatkan waktu sekarang
+
+        // foreach ($booking as $bookingItem) {
+        //     $startTime = Carbon::parse($bookingItem->start); // Konversi waktu mulai ke objek Carbon
+        //     $endTime = Carbon::parse($bookingItem->finish); // Konversi waktu selesai ke objek Carbon
+
+        //     // Periksa kondisi waktu untuk setiap booking
+        //     if ($now >= $startTime && $now < $endTime) {
+        //         $bookingItem->status = 'Digunakan';
+        //     } else if ($now >= $endTime) {
+        //         $bookingItem->status = 'Selesai';
+        //     } else {
+        //         // Jika waktu sekarang sebelum waktu mulai, status tetap sama atau tidak perlu diubah
+        //         // Tambahkan logika lain jika diperlukan
+        //     }
+        // }
 
         return view('konfirmasi.index', compact('booking'));
     }

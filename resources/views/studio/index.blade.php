@@ -136,6 +136,21 @@
                 </div>
             </div>
         </div>
+
+        <footer class="bg-white rounded-lg shadow dark:bg-gray-900 m-4">
+            <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+                <div class="sm:flex sm:items-center sm:justify-between">
+                    <a href="/" class="flex items-center mb-4 sm:mb-0">
+                        <img src="{{ asset('image/camera.jpeg') }}" class="h-8 mr-3" />
+                        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">The
+                            Studio</span>
+                    </a>
+                </div>
+                <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+                <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="/"
+                        class="hover:underline">The Studio™</a>. All Rights Reserved.</span>
+            </div>
+        </footer>
     </section>
     <!-- END -->
 
@@ -166,6 +181,9 @@
                     <li> Ruang ganti </li>
                 </p>
 
+                <p class="mt-2 font-bold text-gray-700 dark:text-white hover:text-gray-600 dark:hover:text-gray-200">
+                    <a> Harga : Rp 75.000/jam </a>
+                </p>
             </div>
             <div class="flex items-center justify-between">
                 <span class="text-sm font-light text-gray-600 dark:text-gray-400"></span>
@@ -201,6 +219,9 @@
                     <li> Ruang ganti </li>
                 </p>
 
+                <p class="mt-2 font-bold text-gray-700 dark:text-white hover:text-gray-600 dark:hover:text-gray-200">
+                    <a> Harga : Rp 150.000/jam </a>
+                </p>
             </div>
             <div class="flex items-center justify-between">
                 <span class="text-sm font-light text-gray-600 dark:text-gray-400"></span>
@@ -234,6 +255,10 @@
                     <li> Meja rias dilengkapi dengan kaca</li>
                     <li> Tersedia meja dan kursi</li>
                 </p>
+
+                <p class="mt-2 font-bold text-gray-700 dark:text-white hover:text-gray-600 dark:hover:text-gray-200">
+                    <a> Harga : Rp 175.000/jam </a>
+                </p>
             </div>
 
             <div class="flex items-center justify-between">
@@ -246,6 +271,90 @@
     </div>
     <!-- END -->
 
+    {{-- <section class="bg-white dark:bg-gray-900"> --}}
+    {{-- <div class="container px-11 py-5 mx-auto">
+            <div class="text-center">
+                <h1 class="text-2xl font-semibold text-gray-800 lg:text-3xl dark:text-white"> Blog
+                </h1>
+
+                <div class="flex justify-center mx-auto mt-4">
+                    <span class="inline-block w-40 h-1 bg-stone-400 rounded-full"></span>
+                    <span class="inline-block w-3 h-1 mx-1 bg-stone-400 rounded-full"></span>
+                    <span class="inline-block w-1 h-1 bg-stone-400 rounded-full"></span>
+                </div>
+
+            </div>
+
+            <div class="grid grid-cols-1 gap-9 mt-8 lg:grid-cols-2">
+                <div>
+                    <img class="relative z-10 object-cover w-full rounded-md h-96"
+                        src="{{ asset('image/trencewekkue.jpg') }}"alt="">
+
+                    <div class="relative z-20 max-w-lg p-6 mx-auto -mt-20 bg-white rounded-md shadow dark:bg-gray-900">
+                        <a class="font-semibold text-gray-800 hover:underline dark:text-white md:text-xl">
+                            Cewek Kue, Tren Fashion Colour Blocking ala TikTok
+                        </a>
+
+                        <p class="mt-3 text-sm text-gray-500 dark:text-gray-300 md:text-sm text-justify">
+                            Istilah cewe kue saat ini tengah menjadi tren di kalangan pecinta fashion.
+                            Dalam dunia fashion, mengenakan busana warna terang dan bertabrakan disebut dengan color
+                            blocking. Gaya busana ini akan membantu penggunanya untuk tetap terlihat modis dan
+                            memberikan kesan cheerful. Warna-warna yang biasa digunakan untuk gaya busana ini adalah
+                            kuning cerah, shocking pink, electric blue, hijau neon, ungu, dan oranye.
+                        </p>
+
+
+                        <p class="mt-3 text-sm text-blue-500">17 Juni 2023</p>
+                    </div>
+                </div>
+
+                <div>
+                    <img class="relative z-10 object-cover w-full rounded-md h-96"
+                        src="{{ asset('image/Sagegreen.jpg') }}" alt="">
+
+                    <div class="relative z-20 max-w-lg p-6 mx-auto -mt-20 bg-white rounded-md shadow dark:bg-gray-900">
+                        <a class="font-semibold text-gray-800 hover:underline dark:text-white md:text-xl">
+                            Warna Sage Green, Jadi Tren di Lebaran 2023
+                        </a>
+
+                        <p class="mt-3 text-sm text-gray-500 dark:text-gray-300 md:text-sm text-justify">
+                            Warna Sage merupakan singkatan dari kata a shade of green yang tengah trending.
+                            Jika dilihat dari namanya yakni sage green, warna sage green sudah pasti merupakan warna
+                            hijau.Namun sage green adalah warna hijau muted yang menciptakan nuansa damai jika dipandang
+                            oleh mata. Baju dengan warna Sage ini cocok untuk dikenakan saat hangout bersama dengan
+                            teman-teman ataupun untuk sehari-hari dikenakan
+                            bekerja.
+                        </p>
+
+                        <p class="mt-3 text-sm text-blue-500">23 April 2023</p>
+                    </div>
+                </div>
+
+                <div>
+                    <img class="relative z-10 object-cover w-full rounded-md h-96"
+                        src="{{ asset('image/duadua.jpg') }}" alt="">
+
+                    <div class="relative z-20 max-w-lg p-6 mx-auto -mt-20 bg-white rounded-md shadow dark:bg-gray-900">
+                        <a class="font-semibold text-gray-800 hover:underline dark:text-white md:text-xl">
+                            Self Photo Studio, Konsep Foto Unik ala Korea yang Digandrungi Kalangan Muda
+                        </a>
+
+                        <p class="mt-3 text-sm text-gray-500 dark:text-gray-300 md:text-sm text-justify">
+                            Self photo studio saat ini sedang digandrungi anak muda. seperti studio pada umumnya, di
+                            ruangan studio disediakan beragam background.
+                            bedanya, di self studio sudah tertata rapi kamera diatas tripod dan lampu studio yang
+                            menyorot menghadap background.
+                            Tak hanya itu, ada pula layar kecil untuk melihat pose hasil tangkapan kamera.
+                        </p>
+
+                        <p class="mt-3 text-sm text-blue-500">16 Agustus 2022</p>
+                    </div>
+                </div>
+
+
+            </div>
+        </div> --}}
+    {{-- </section> --}}
 
     <!-- BOTTON BOOKING -->
     <script>
