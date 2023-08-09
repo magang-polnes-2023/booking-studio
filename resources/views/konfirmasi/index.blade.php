@@ -31,9 +31,9 @@
                         <th scope="col" class="px-4 py-3 border border-gray-200">
                             Action
                         </th>
-                        <th scope="col" class="px-4 py-3 border border-gray-200">
+                        {{-- <th scope="col" class="px-4 py-3 border border-gray-200">
                             Cancel
-                        </th>
+                        </th> --}}
                     </tr>
                 </thead>
                 @if ($booking->count() > 0)
@@ -105,10 +105,18 @@
                                 </td>
                                 <td class="px-7 py-3 border border-gray-200">
                                     <div x-data="{ isOpen: false }" class="flex justify-center items-center">
-                                        <button @click="isOpen = true"
-                                            class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                            Bayar
-                                        </button>
+                                        @if ($item->status === 'Belum Dibayar')
+                                            <button @click="isOpen = true"
+                                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                                Bayar
+                                            </button>
+                                        @else
+                                            <button @click="isOpen = true"
+                                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                                Detail
+                                            </button>
+                                        @endif
+
 
                                         <div x-show="isOpen" x-transition:enter="transition duration-300 ease-out"
                                             x-transition:enter-start="translate-y-4 opacity-0 sm:translate-y-0 sm:scale-95"
@@ -199,16 +207,19 @@
 
                                                     </div>
 
-                                                    <div class="mt-2 text-justify">
-                                                        <h6 class="text-md text-gray-500 dark:text-white">
-                                                            Anda dapat membayar dengan memindai barcode ini:
-                                                        </h6>
-                                                    </div>
+                                                    @if ($item->status === 'Belum Dibayar')
+                                                        <div class="mt-2 text-justify">
+                                                            <h6 class="text-md text-gray-500 dark:text-white">
+                                                                Anda dapat membayar dengan memindai barcode ini:
+                                                            </h6>
+                                                        </div>
 
-                                                    <div class="flex items-center justify-center mx-auto">
-                                                        <img class="h-full rounded-lg w-60"
-                                                            src="{{ asset('image/dana.jpg') }}" />
-                                                    </div>
+                                                        <div class="flex items-center justify-center mx-auto">
+                                                            <img class="h-full rounded-lg w-60"
+                                                                src="{{ asset('image/dana.jpg') }}" />
+                                                        </div>
+                                                    @endif
+
 
                                                     <div
                                                         class="mt-4 sm:flex sm:items-center sm:justify-between sm:mt-6 sm:-mx-2">
@@ -221,22 +232,21 @@
                                             </div>
                                         </div>
                                     </div>
-                                </td>
-                                @if ($item->status == 'Belum Dibayar')
-                                    <td class="px-6 py-1 border border-gray-200">
+                                    @if ($item->status == 'Belum Dibayar')
                                         <form action="{{ route('konfirmasi.cancel', ['id' => $item->id]) }}"
                                             method="post">
                                             @csrf
-                                            <div x-data="{ isOpen: false }" class="flex justify-center items-center">
+                                            <div x-data="{ isOpen: false }"
+                                                class="flex justify-center items-center mt-3">
                                                 <button @click="isOpen=true"
-                                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                                    class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1 px-4 rounded">
                                                     Cancel
                                                 </button>
                                             </div>
                                         </form>
-                                    </td>
-                                @else
-                                @endif
+                                    @else
+                                    @endif
+                                </td>
                             </tr>
                         </tbody>
                     @endforeach
